@@ -10,18 +10,51 @@ import { FaInstagram } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
-function LandingPage() {
 
+
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
+function LandingPage() {
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  flexGrow: 1,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
 
   return (
 
   <>
       <Header/>
       {/* image  */}
-      <div>
-        <img src="https://cdn.pixabay.com/photo/2017/09/25/17/30/chart-2785938_1280.jpg" alt="imd-not-found" width={'100%'} style={{height:'90vh'}}/>
+      <section id='img-landing'>
+       
+ {/* box  */}
+<section id='content'>
+    <div 
+      className="shadow border py-5 px-4 rounded text-center"
+      style={{ backgroundColor: "rgba(225,225,225,0.5)" }}
+    >
+      <h4>Designed to get hired</h4>
+      <h6>Your skills, your story, your next job — all in one.</h6>
+     <Link to={'/resumegeneratorpage'}>
+     
+        <button className="btn btn-primary">Make your resume</button>
+     
+     </Link>
+     
+    </div>
+</section>
 
-      </div>
+      </section>
 {/* tools */}
       <div>
        
@@ -51,8 +84,8 @@ function LandingPage() {
       </div>
 
 {/* image */}
-      <div className='m-5'>
-         <img src="https://cdn.pixabay.com/photo/2018/06/02/22/58/career-3449422_1280.png" alt="" width={'100%'}  />
+      <div className='mt-5' id='img-landing2'>
+         <img src="" alt="" width={'100%'}  />
       </div>
 
       {/* testimony */}

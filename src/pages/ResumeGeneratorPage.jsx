@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import { Button, Container, Grid, Paper } from '@mui/material'
 import { IoMdDocument } from "react-icons/io";
 import { FaFileDownload } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 function ResumeGeneratorPage() {
   
   return (
@@ -42,7 +43,7 @@ function ResumeGeneratorPage() {
         {/* button section */}
 
         <Grid display="flex" flexDirection={'column'} justifyContent="center" alignItems="center">
-          <Button variant='contained'>Let's Start</Button>
+          <Link to={'/form'}><Button variant='contained'>Let's Start</Button></Link>
         </Grid>
         </>
  
