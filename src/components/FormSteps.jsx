@@ -16,7 +16,13 @@ const steps = [
   'Skills',
   'Summary'
 ];
-function FormSteps() {
+function FormSteps({formData,setFormData}) {
+
+
+  const {personalDetails,contactDetails,education,professionalDetails,skills,summary}=formData
+  console.log(formData);
+  // console.log(formData.personalDetails);
+  
 
       const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -71,9 +77,9 @@ function FormSteps() {
 
         <h3>Personal Details</h3>
          <Stack>
-              <TextField label="Standard" variant="standard" />
-              <TextField label="Standard" variant="standard" />
-              <TextField label="Standard" variant="standard" />
+              <TextField label="Full Name" variant="standard" onChange={(e)=>setFormData({...formData,personalDetails:{...formData.personalDetails,name:e.target.value}})}  value={personalDetails.name}/>
+              <TextField label="Job Title" variant="standard" onChange={(e)=>setFormData({...formData,personalDetails:{...formData.personalDetails,title:e.target.value}})}  value={personalDetails.title}/>
+              <TextField label="Location" variant="standard" onChange={(e)=>setFormData({...formData,personalDetails:{...formData.personalDetails,location:e.target.value}})}  value={personalDetails.location}/>
          </Stack>
     </Box>
         )
@@ -83,11 +89,11 @@ function FormSteps() {
 
         <h3>Contact Details</h3>
          <Stack>
-              <TextField label="Standard" variant="standard" />
-              <TextField label="Standard" variant="standard" />
-              <TextField label="Standard" variant="standard" />
-              <TextField label="Standard" variant="standard" />
-              <TextField label="Standard" variant="standard" />
+              <TextField label="Email" variant="standard" onChange={(e)=>setFormData({...formData,contactDetails:{...formData.contactDetails,email:e.target.value}})} value={contactDetails.email} />
+              <TextField label="Phone Number" variant="standard" onChange={(e)=>setFormData({...formData,contactDetails:{...formData.contactDetails,phoneNumber:e.target.value}})} value={contactDetails.phoneNumber}  />
+              <TextField label="GitHub Profile Link" variant="standard" onChange={(e)=>setFormData({...formData,contactDetails:{...formData.contactDetails,gitHub:e.target.value}})} value={contactDetails.gitHub} />
+              <TextField label="Linkedin Profile Link" variant="standard" onChange={(e)=>setFormData({...formData,contactDetails:{...formData.contactDetails,linkedin:e.target.value}})} value={contactDetails.linkedin} />
+              <TextField label="Protfolio Link" variant="standard" onChange={(e)=>setFormData({...formData,contactDetails:{...formData.contactDetails,portfolio:e.target.value}})} value={contactDetails.portfolio} />
          </Stack>
     </Box>
         )
@@ -96,10 +102,10 @@ function FormSteps() {
 
         <h3>Educational Details</h3>
          <Stack>
-              <TextField label="Standard" variant="standard" />
-              <TextField label="Standard" variant="standard" />
-              <TextField label="Standard" variant="standard" />
-              <TextField label="Standard" variant="standard" />
+              <TextField label="Course Name" variant="standard" onChange={(e)=>setFormData({...formData,education:{...formData.education,course:e.target.value}})} value={education.course} />
+              <TextField label="Colllage Name" variant="standard" onChange={(e)=>setFormData({...formData,education:{...formData.education,collage:e.target.value}})} value={education.collage}  />
+              <TextField label="University" variant="standard" onChange={(e)=>setFormData({...formData,education:{...formData.education,university:e.target.value}})} value={education.university} />
+              <TextField label="Year of PassOut" variant="standard" onChange={(e)=>setFormData({...formData,education:{...formData.education,year:e.target.value}})} value={education.year} />
          </Stack>
     </Box>
         )
@@ -109,10 +115,10 @@ function FormSteps() {
 
         <h3>Professional Details</h3>
          <Stack>
-              <TextField label="Standard" variant="standard" />
-              <TextField label="Standard" variant="standard" />
-              <TextField label="Standard" variant="standard" />
-              <TextField label="Standard" variant="standard" />
+              <TextField label="Job Or  Internship" variant="standard" onChange={(e)=>setFormData({...formData,professionalDetails:{...formData.professionalDetails,jobTitle:e.target.value}})} value={professionalDetails.jobTitle} />
+              <TextField label="Compay Name" variant="standard" onChange={(e)=>setFormData({...formData,professionalDetails:{...formData.professionalDetails,company:e.target.value}})} value={professionalDetails.compay}/>
+              <TextField label="Location" variant="standard"  onChange={(e)=>setFormData({...formData,professionalDetails:{...formData.professionalDetails,location:e.target.value}})} value={professionalDetails.location}/>
+              <TextField label="Duration" variant="standard"  onChange={(e)=>setFormData({...formData,professionalDetails:{...formData.professionalDetails,duration:e.target.value}})} value={professionalDetails.duration}/>
          </Stack>
     </Box>
         )
@@ -121,7 +127,7 @@ function FormSteps() {
 
         <h3>Skills</h3>
          <Stack>
-              <TextField label="Standard" variant="standard" />
+              <TextField label="Add Skills" variant="standard" />
 
              <div className='mt-4'>
                  <p>Suggestion: </p>
@@ -154,7 +160,7 @@ function FormSteps() {
         <h3>Professional Summary</h3>
          <Stack>
           
-              <TextField label="Summary" multiline rows={4} defaultValue="Lorem ipsumblanditiis est, deleniti fugit excepturi harum repudiandae sit delectus?" variant="standard" />
+              <TextField label="Write a short Summary of Yourself" multiline rows={4} defaultValue="Lorem ipsumblanditiis est, deleniti fugit excepturi harum repudiandae sit delectus?" variant="standard" onChange={(e)=>setFormData({...formData,summary:e.target.value})}/>
               
          </Stack>
     </Box>

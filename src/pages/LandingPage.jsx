@@ -41,7 +41,7 @@ const Item = styled(Paper)(({ theme }) => ({
 <section id='content'>
     <div 
       className="shadow border py-5 px-4 rounded text-center"
-      style={{ backgroundColor: "rgba(225,225,225,0.5)" }}
+      style={{ backgroundColor: "rgba(225, 225, 225, 0.72)",marginTop:"250px", width:'500px', height:'200px'}}
     >
       <h4>Designed to get hired</h4>
       <h6>Your skills, your story, your next job — all in one.</h6>
