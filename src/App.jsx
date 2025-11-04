@@ -17,6 +17,7 @@ function App() {
       <Route path='/history' element={<History/>}/>
       <Route path='/form' element={<Form/>}/>
       <Route path='/resumegeneratorpage' element={<ResumeGeneratorPage/>}/>
+      
       <Route path='*' element={<PageNotFound/>}/>
     </Routes>
     </>

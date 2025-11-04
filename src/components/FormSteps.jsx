@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -7,6 +7,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { Stack } from 'react-bootstrap';
+import { ImCross } from "react-icons/im";
+import { addResumeAPI } from '../services/allAPIs';
+import Swal from 'sweetalert2'
 
 const steps = [
   'Basic Information',
@@ -16,12 +19,23 @@ const steps = [
   'Skills',
   'Summary'
 ];
-function FormSteps({formData,setFormData}) {
+function FormSteps({formData,setFormData,setDataStatus}) {
+console.log(setDataStatus);
 
 
   const {personalDetails,contactDetails,education,professionalDetails,skills,summary}=formData
   console.log(formData);
   // console.log(formData.personalDetails);
+  
+  // to add skills
+
+  const [inputSkill,setInputSkill]= useState('')
+  // console.log(inputSkill);
+
+
+  // suggestions array
+
+  const suggestions =['React' ,'Angular','Node JS','Express','MongoDb']
   
 
       const [activeStep, setActiveStep] = React.useState(0);
@@ -70,6 +84,7 @@ function FormSteps({formData,setFormData}) {
   };
 
 
+
   const renderStepContent=(step)=>{
     switch(step){
         case 0:return(
@@ -116,7 +131,7 @@ function FormSteps({formData,setFormData}) {
         <h3>Professional Details</h3>
          <Stack>
               <TextField label="Job Or  Internship" variant="standard" onChange={(e)=>setFormData({...formData,professionalDetails:{...formData.professionalDetails,jobTitle:e.target.value}})} value={professionalDetails.jobTitle} />
-              <TextField label="Compay Name" variant="standard" onChange={(e)=>setFormData({...formData,professionalDetails:{...formData.professionalDetails,company:e.target.value}})} value={professionalDetails.compay}/>
+              <TextField label="Compay Name" variant="standard" onChange={(e)=>setFormData({...formData,professionalDetails:{...formData.professionalDetails,company:e.target.value}})} value={professionalDetails.company}/>
               <TextField label="Location" variant="standard"  onChange={(e)=>setFormData({...formData,professionalDetails:{...formData.professionalDetails,location:e.target.value}})} value={professionalDetails.location}/>
               <TextField label="Duration" variant="standard"  onChange={(e)=>setFormData({...formData,professionalDetails:{...formData.professionalDetails,duration:e.target.value}})} value={professionalDetails.duration}/>
          </Stack>
@@ -127,16 +142,20 @@ function FormSteps({formData,setFormData}) {
 
         <h3>Skills</h3>
          <Stack>
-              <TextField label="Add Skills" variant="standard" />
+              <TextField label="Add Skills" variant="standard" onChange={(e)=>setInputSkill(e.target.value)}  />
+
+                <Button variant='contained' className='m-5' onClick={()=>addSkill(inputSkill)}>Add Skill </Button>
 
              <div className='mt-4'>
                  <p>Suggestion: </p>
                 <div >
-                
-             <Button variant='outlined' className='m-2'>react</Button>
-             <Button variant='outlined' className='m-2'>react</Button>
-             <Button variant='outlined' className='m-2'>react</Button>
-             <Button variant='outlined' className='m-2'>react</Button>
+                  {
+              suggestions.map(item=>(
+             <Button variant='outlined' className='m-2' onClick={()=>addSkill(item)}>{item}</Button>
+
+              ))
+             }
+           
            
 
                      
@@ -146,9 +165,14 @@ function FormSteps({formData,setFormData}) {
             
            <div className='mt-4'>  
              <p>Added Skills</p>
-             <Button variant='contained' className='m-2'>react</Button>
-             <Button variant='contained' className='m-2'>react</Button>
-             <Button variant='contained' className='m-2'>react</Button>
+             {
+              skills.map(item=>(
+             <Button variant='contained' className='m-2'>{item}
+              <span className=' text-danger p-2' onClick={()=>removeSkills(item)}><ImCross /></span></Button>
+
+              ))
+             }
+
              </div>
          </Stack>
     </Box>
@@ -172,6 +196,63 @@ function FormSteps({formData,setFormData}) {
             )
     }
   }
+
+// skill add function
+
+
+const addSkill=(skill)=>{
+  // console.log(skill);
+  if(skills.includes(skill)){
+  
+
+    Swal.fire({
+  title: "warning?",
+  text: "skill already existing....?",
+  icon: "warning"
+});
+  }  
+  else{
+    setFormData(data=>({...data,skills:[...data.skills,skill]}))
+  }
+}
+
+const removeSkills=(skill)=>{
+  setFormData(data=>({...data,skills:skills.filter(item=>item!=skill)}))
+}
+
+const handleAddResume=async()=>{
+  try{
+const  response = await addResumeAPI(formData)
+console.log(response);
+
+
+if(response.status ===201){
+
+setDataStatus(true)
+Swal.fire({
+  title: 'Submitted',
+  text: ' Succesful Added',
+  icon: 'success',
+  confirmButtonText: 'Okay'
+})
+}
+
+ 
+  }
+
+  catch(err){
+        
+    Swal.fire({
+  title: 'error',
+  text: ' ',
+  icon: 'error',
+  confirmButtonText: 'Okay'
+})
+  }
+ 
+
+
+}
 
   return (
     <div>     <Box sx={{ width: '100%' }}>
@@ -228,9 +309,19 @@ function FormSteps({formData,setFormData}) {
                 Skip
               </Button>
             )}
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
+            < >
+              {activeStep === steps.length - 1 ? 
+              
+              (
+                <Button onClick={handleAddResume}>Finish</Button>
+              ): (
+                <Button onClick={handleNext}>Next</Button>
+              )
+              
+              
+              
+              }
+            </>
           </Box>
         </React.Fragment>
       )}

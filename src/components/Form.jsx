@@ -7,6 +7,7 @@ import Preview from './Preview'
 
 function Form() {
 
+  const [dataStatus,setDataStatus]=useState(false)
   const [formData,setFormData]=useState({
     personalDetails:{
       name:'',
@@ -37,12 +38,14 @@ function Form() {
   summary:''
 
   })
+
+
   return (
     <>
 
       <Header />
 
-      <Stack
+  { !dataStatus?   <Stack
         direction={{ xs: "column", md: "row" }}
         spacing={2}
         sx={{
@@ -52,12 +55,33 @@ function Form() {
         }}>
 
         <div >
-          <FormSteps formData={formData} setFormData={setFormData} />
+
+        <FormSteps formData={formData} setFormData={setFormData} setDataStatus={setDataStatus} />
+         
         </div>
         <div>
+       
           <Preview formData={formData}  />
         </div>
-      </Stack>
+      </Stack> :  <Stack
+        direction='column'
+        spacing={2}
+        sx={{
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          marginTop: "20px"
+        }}>
+
+        <div >
+
+          {/* {!dataStatus?  <FormSteps formData={formData} setFormData={setFormData} setDataStatus={setDataStatus} />:null} */}
+         
+        </div>
+        <div>
+   
+          <Preview formData={formData}  />
+        </div>
+      </Stack> }
 
 
 
